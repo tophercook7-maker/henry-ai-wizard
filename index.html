@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Henry AI - Desktop Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <button id="sidebarToggle" class="sidebar-toggle">☰</button>
+                <h1 class="app-title">Henry AI</h1>
+                <div class="header-status">
+                    <span id="statusIndicator" class="status-indicator">●</span>
+                    <span id="statusText">Ready</span>
+                </div>
+                <div class="header-actions">
+                    <button id="settingsBtn" class="header-btn" title="Settings">⚙️</button>
+                    <button id="minimizeBtn" class="header-btn" title="Minimize">_</button>
+                    <button id="closeBtn" class="header-btn" title="Close">✕</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="app-body">
+            <!-- Collapsible Left Sidebar -->
+            <aside id="sidebar" class="sidebar">
+                <div class="sidebar-content">
+                    <!-- Chat Management -->
+                    <div class="sidebar-section">
+                        <button class="section-header" data-section="chats">
+                            <span class="section-icon">💬</span>
+                            <span class="section-title">Conversations</span>
+                            <span class="section-arrow">▼</span>
+                        </button>
+                        <div class="section-content" id="chats-content">
+                            <button id="newChatBtn" class="sidebar-btn">+ New Chat</button>
+                            <div id="conversationList" class="conversation-list">
+                                <!-- Conversations will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- File Operations -->
+                    <div class="sidebar-section">
+                        <button class="section-header" data-section="files">
+                            <span class="section-icon">📁</span>
+                            <span class="section-title">File Operations</span>
+                            <span class="section-arrow">▼</span>
+                        </button>
+                        <div class="section-content" id="files-content">
+                            <button class="sidebar-btn" data-action="browse-desktop">Desktop</button>
+                            <button class="sidebar-btn" data-action="browse-documents">Documents</button>
+                            <button class="sidebar-btn" data-action="browse-downloads">Downloads</button>
+                            <button class="sidebar-btn" data-action="upload-file">Upload File</button>
+                        </div>
+                    </div>
+
+                    <!-- Terminal -->
+                    <div class="sidebar-section">
+                        <button class="section-header" data-section="terminal">
+                            <span class="section-icon">⌨️</span>
+                            <span class="section-title">Terminal</span>
+                            <span class="section-arrow">▼</span>
+                        </button>
+                        <div class="section-content" id="terminal-content">
+                            <div class="terminal-window">
+                                <div class="terminal-output" id="terminalOutput"></div>
+                                <div class="terminal-input-line">
+                                    <span class="terminal-prompt">$ </span>
+                                    <input type="text" id="terminalInput" class="terminal-input" placeholder="Enter command...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Apps & Integrations -->
+                    <div class="sidebar-section">
+                        <button class="section-header" data-section="apps">
+                            <span class="section-icon">🚀</span>
+                            <span class="section-title">Connected Apps</span>
+                            <span class="section-arrow">▼</span>
+                        </button>
+                        <div class="section-content" id="apps-content">
+                            <div class="app-categories">
+                                <button class="category-btn active" data-category="all">All Apps</button>
+                                <button class="category-btn" data-category="productivity">Productivity</button>
+                                <button class="category-btn" data-category="development">Development</button>
+                                <button class="category-btn" data-category="communication">Communication</button>
+                            </div>
+                            <div id="appsList" class="apps-list">
+                                <!-- Apps will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Automation -->
+                    <div class="sidebar-section">
+                        <button class="section-header" data-section="automation">
+                            <span class="section-icon">🤖</span>
+                            <span class="section-title">Automation</span>
+                            <span class="section-arrow">▼</span>
+                        </button>
+                        <div class="section-content" id="automation-content">
+                            <button class="sidebar-btn" data-automation="sync-all">Sync All Apps</button>
+                            <button class="sidebar-btn" data-automation="backup">Backup Files</button>
+                            <button class="sidebar-btn" data-automation="organize">Organize Files</button>
+                            <button class="sidebar-btn" data-automation="update">Update System</button>
+                        </div>
+                    </div>
+
+                    <!-- Voice Control -->
+                    <div class="sidebar-section">
+                        <button class="section-header" data-section="voice">
+                            <span class="section-icon">🎤</span>
+                            <span class="section-title">Voice Control</span>
+                            <span class="section-arrow">▼</span>
+                        </button>
+                        <div class="section-content" id="voice-content">
+                            <button id="voiceToggleBtn" class="sidebar-btn">Start Listening</button>
+                            <div id="voiceStatus" class="voice-status">Voice control inactive</div>
+                        </div>
+                    </div>
+
+                    <!-- Statistics -->
+                    <div class="sidebar-section">
+                        <button class="section-header" data-section="stats">
+                            <span class="section-icon">📊</span>
+                            <span class="section-title">Statistics</span>
+                            <span class="section-arrow">▼</span>
+                        </button>
+                        <div class="section-content" id="stats-content">
+                            <div class="stat-item">
+                                <span class="stat-label">Tasks Today:</span>
+                                <span class="stat-value" id="tasksToday">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Files Processed:</span>
+                                <span class="stat-value" id="filesProcessed">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Commands Run:</span>
+                                <span class="stat-value" id="commandsRun">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Resize Handle -->
+                <div class="sidebar-resize-handle" id="sidebarResizeHandle"></div>
+            </aside>
+
+            <!-- Main Chat Area -->
+            <main class="main-content">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <h2 id="currentChatTitle">Henry AI Assistant</h2>
+                        <div class="chat-controls">
+                            <button id="clearChatBtn" class="control-btn" title="Clear Chat">🗑️</button>
+                        </div>
+                    </div>
+
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="welcome-message">
+                            <h3>Welcome to Henry AI</h3>
+                            <p>Your intelligent desktop assistant with file system access, terminal capabilities, and app integration.</p>
+                            <p>Use the sidebar to access different features, or simply start typing to chat with me.</p>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-container">
+                        <div class="input-wrapper">
+                            <textarea 
+                                id="chatInput" 
+                                placeholder="Type your message or command..."
+                                rows="1"
+                            ></textarea>
+                            <button id="sendBtn" class="send-btn">
+                                <span id="sendBtnText">Send</span>
+                                <div id="sendBtnLoader" class="loading-spinner" style="display: none;"></div>
+                            </button>
+                        </div>
+                        <div class="input-suggestions" id="inputSuggestions"></div>
+                    </div>
+                </div>
+
+                <!-- Progress Indicator -->
+                <div class="progress-container" id="progressContainer" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">Processing...</div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Voice Indicator -->
+        <div class="voice-indicator" id="voiceIndicator" style="display: none;">
+            <div class="voice-animation">
+                <div class="voice-wave"></div>
+                <div class="voice-wave"></div>
+                <div class="voice-wave"></div>
+            </div>
+            <span>Listening...</span>
+        </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html>

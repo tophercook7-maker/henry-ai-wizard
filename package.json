@@ -1,0 +1,22 @@
+{
+  "name": "henry-ai-wizard",
+  "version": "1.0.0",
+  "description": "Enhanced Henry AI Wizard - Interactive Desktop Assistant",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "start": "npm run tauri:dev"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^1.5.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^1.5.0",
+    "vite": "^4.4.0"
+  }
+}
